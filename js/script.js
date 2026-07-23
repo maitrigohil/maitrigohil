@@ -5,8 +5,8 @@
 const html = document.documentElement;
 const themeToggle = document.querySelector('.theme-toggle');
 
-// Check for saved theme preference or default to 'dark'
-const currentTheme = localStorage.getItem('theme') || 'dark';
+// Check for saved theme preference or default to 'light'
+const currentTheme = localStorage.getItem('theme') || 'light';
 html.setAttribute('data-theme', currentTheme);
 
 // Toggle theme
