@@ -1,30 +1,4 @@
 // ===========================
-// Theme Toggle
-// ===========================
-
-const html = document.documentElement;
-const themeToggle = document.querySelector('.theme-toggle');
-
-// Check for saved theme preference or default to 'light'
-const currentTheme = localStorage.getItem('theme') || 'light';
-html.setAttribute('data-theme', currentTheme);
-
-// Toggle theme
-themeToggle.addEventListener('click', () => {
-    const currentTheme = html.getAttribute('data-theme');
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    
-    html.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
-    
-    // Add rotation animation
-    themeToggle.style.transform = 'rotate(360deg)';
-    setTimeout(() => {
-        themeToggle.style.transform = 'rotate(0deg)';
-    }, 300);
-});
-
-// ===========================
 // Mobile Menu Toggle
 // ===========================
 
@@ -92,32 +66,40 @@ indexLinks.forEach(link => {
 // Active Section Detection (Scroll-based)
 // ===========================
 
-const observerOptions = {
-    threshold: 0.3,
-    rootMargin: '-100px 0px -50% 0px'
-};
+const mainContentEl = document.querySelector('.main-content');
+const sectionList = Array.from(sections);
 
-const sectionObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            const sectionId = entry.target.getAttribute('id');
-            
-            // Update index active state
-            indexLinks.forEach(link => {
-                const linkHref = link.getAttribute('href').substring(1);
-                if (linkHref === sectionId) {
-                    indexLinks.forEach(l => l.classList.remove('active'));
-                    link.classList.add('active');
-                }
-            });
+function setActiveLink(sectionId) {
+    indexLinks.forEach(link => {
+        const href = link.getAttribute('href').substring(1);
+        link.classList.toggle('active', href === sectionId);
+    });
+}
+
+function updateActiveSection() {
+    if (!mainContentEl) return;
+
+    const scrollPos = mainContentEl.scrollTop + 120;
+    const atBottom = mainContentEl.scrollHeight - mainContentEl.scrollTop - mainContentEl.clientHeight < 2;
+
+    if (atBottom) {
+        setActiveLink(sectionList[sectionList.length - 1].id);
+        return;
+    }
+
+    let currentId = sectionList[0].id;
+    sectionList.forEach(section => {
+        if (section.offsetTop <= scrollPos) {
+            currentId = section.id;
         }
     });
-}, observerOptions);
+    setActiveLink(currentId);
+}
 
-// Observe all sections
-sections.forEach(section => {
-    sectionObserver.observe(section);
-});
+if (mainContentEl) {
+    mainContentEl.addEventListener('scroll', updateActiveSection);
+    updateActiveSection();
+}
 
 // ===========================
 // Smooth Scrolling for All Links
@@ -154,11 +136,6 @@ document.addEventListener('keydown', (e) => {
         if (mobileMenuToggle) {
             mobileMenuToggle.classList.remove('active');
         }
-    }
-    
-    // T key to toggle theme (when not typing in input)
-    if (e.key === 't' && !e.target.matches('input, textarea')) {
-        themeToggle.click();
     }
     
     // Navigate sections with arrow keys (when index is focused)
@@ -198,7 +175,6 @@ window.addEventListener('load', () => {
     }
     
     console.log('Portfolio loaded successfully! ✓');
-    console.log('Press "T" to toggle theme');
 });
 
 // ===========================
@@ -215,10 +191,9 @@ document.querySelectorAll('a[href="#"]').forEach(link => {
 // Console Easter Egg
 // ===========================
 
-console.log('%c👋 Hello, curious developer!', 'color: #10b981; font-size: 16px; font-weight: bold; font-family: JetBrains Mono, monospace;');
-console.log('%cWelcome to my portfolio. Feel free to explore the code!', 'color: #a0a0a0; font-size: 12px; font-family: JetBrains Mono, monospace;');
-console.log('%cPress "T" to toggle between dark and light mode', 'color: #10b981; font-size: 12px; font-family: JetBrains Mono, monospace;');
-console.log('%c- Maitri Gohil', 'color: #10b981; font-size: 12px; font-style: italic; font-family: JetBrains Mono, monospace;');
+console.log('%c👋 Hello, curious visitor!', 'color: #7a2731; font-size: 16px; font-weight: bold; font-family: Inter, sans-serif;');
+console.log('%cWelcome to my portfolio.', 'color: #5b4f42; font-size: 12px; font-family: Inter, sans-serif;');
+console.log('%c- Maitri Gohil', 'color: #7a2731; font-size: 12px; font-style: italic; font-family: Inter, sans-serif;');
 
 // ===========================
 // Performance Monitoring (Dev Mode)
@@ -248,7 +223,7 @@ skipLink.style.cssText = `
     padding: 8px 16px;
     text-decoration: none;
     z-index: 10000;
-    font-family: var(--font-mono);
+    font-family: var(--font-body);
     font-size: 12px;
     transition: top 0.2s;
 `;
