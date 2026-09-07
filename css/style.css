@@ -285,9 +285,16 @@ h1, h2, h3 {
     margin-bottom: var(--space-sm);
 }
 
+.timeline-intro {
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-sm);
+}
+
 .timeline-description {
-    font-size: 13px;
-    line-height: 1.7;
+    font-size: 15px;
+    line-height: 1.8;
     color: var(--color-text-secondary);
     padding-left: var(--space-md);
 }
@@ -296,15 +303,8 @@ h1, h2, h3 {
     margin-bottom: var(--space-xs);
 }
 
-.timeline-intro {
-    font-size: 13px;
-    line-height: 1.7;
-    color: var(--color-text-secondary);
-    margin-bottom: var(--space-sm);
-}
-
 .timeline-subtitle {
-    font-size: 13px;
+    font-size: 15px;
     color: var(--color-text-primary);
     margin-bottom: var(--space-xs);
 }
@@ -405,8 +405,8 @@ h1, h2, h3 {
 }
 
 .award-description {
-    font-size: 13px;
-    line-height: 1.7;
+    font-size: 15px;
+    line-height: 1.8;
     color: var(--color-text-secondary);
 }
 
@@ -439,8 +439,8 @@ h1, h2, h3 {
 }
 
 .publication-description {
-    font-size: 13px;
-    line-height: 1.7;
+    font-size: 15px;
+    line-height: 1.8;
     color: var(--color-text-secondary);
     margin-bottom: var(--space-sm);
 }
@@ -551,8 +551,8 @@ h1, h2, h3 {
 }
 
 .book-note {
-    font-size: 12px;
-    line-height: 1.6;
+    font-size: 15px;
+    line-height: 1.8;
     color: var(--color-text-secondary);
 }
 
