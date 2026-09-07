@@ -227,8 +227,8 @@ h1, h2, h3 {
     font-size: 15px;
     line-height: 1.8;
     color: var(--color-text-secondary);
-    margin-bottom: var(--space-xl);
-    max-width: 700px;
+    margin-bottom: var(--space-lg);
+    text-align: justify;
 }
 
 /* About Section */
